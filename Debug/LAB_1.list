@@ -115,108 +115,108 @@ int main(void)
   int count = 500;		//Init with LED_RED on for 5s
  800015e:	f44f 73fa 	mov.w	r3, #500	; 0x1f4
  8000162:	607b      	str	r3, [r7, #4]
-   int state = 0;
+    int state = 0;
  8000164:	2300      	movs	r3, #0
  8000166:	603b      	str	r3, [r7, #0]
-   HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);		//LED_RED ON
+    HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);		//LED_RED ON
  8000168:	2200      	movs	r2, #0
  800016a:	2120      	movs	r1, #32
  800016c:	4825      	ldr	r0, [pc, #148]	; (8000204 <main+0xb8>)
  800016e:	f000 fc29 	bl	80009c4 <HAL_GPIO_WritePin>
-   HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);	//LED_YELLOW OFF
+    HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);	//LED_YELLOW OFF
  8000172:	2201      	movs	r2, #1
  8000174:	2140      	movs	r1, #64	; 0x40
  8000176:	4823      	ldr	r0, [pc, #140]	; (8000204 <main+0xb8>)
  8000178:	f000 fc24 	bl	80009c4 <HAL_GPIO_WritePin>
-   HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);	//LED_GREEN OFF
+    HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);	//LED_GREEN OFF
  800017c:	2201      	movs	r2, #1
  800017e:	2180      	movs	r1, #128	; 0x80
  8000180:	4820      	ldr	r0, [pc, #128]	; (8000204 <main+0xb8>)
  8000182:	f000 fc1f 	bl	80009c4 <HAL_GPIO_WritePin>
-   while (1)
-   {
- 		  if(state == 0) {
+    while (1)
+    {
+  		  if(state == 0) {
  8000186:	683b      	ldr	r3, [r7, #0]
  8000188:	2b00      	cmp	r3, #0
  800018a:	d10e      	bne.n	80001aa <main+0x5e>
- 			  if(count <= 0) {
+  			  if(count <= 0) {
  800018c:	687b      	ldr	r3, [r7, #4]
  800018e:	2b00      	cmp	r3, #0
  8000190:	dc0b      	bgt.n	80001aa <main+0x5e>
- 			  state = 1;
+  			  state = 1;
  8000192:	2301      	movs	r3, #1
  8000194:	603b      	str	r3, [r7, #0]
- 			  count = 200;
+  			  count = 200;
  8000196:	23c8      	movs	r3, #200	; 0xc8
  8000198:	607b      	str	r3, [r7, #4]
- 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+  			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
  800019a:	2120      	movs	r1, #32
  800019c:	4819      	ldr	r0, [pc, #100]	; (8000204 <main+0xb8>)
  800019e:	f000 fc29 	bl	80009f4 <HAL_GPIO_TogglePin>
- 			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+  			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
  80001a2:	2140      	movs	r1, #64	; 0x40
  80001a4:	4817      	ldr	r0, [pc, #92]	; (8000204 <main+0xb8>)
  80001a6:	f000 fc25 	bl	80009f4 <HAL_GPIO_TogglePin>
- 			  }
+  			  }
 
- 		  }
- 		  if(state == 1) {
+  		  }
+  		  if(state == 1) {
  80001aa:	683b      	ldr	r3, [r7, #0]
  80001ac:	2b01      	cmp	r3, #1
  80001ae:	d10f      	bne.n	80001d0 <main+0x84>
- 			  if(count <= 0) {
+  			  if(count <= 0) {
  80001b0:	687b      	ldr	r3, [r7, #4]
  80001b2:	2b00      	cmp	r3, #0
  80001b4:	dc0c      	bgt.n	80001d0 <main+0x84>
- 			  state = 2;
+  			  state = 2;
  80001b6:	2302      	movs	r3, #2
  80001b8:	603b      	str	r3, [r7, #0]
- 			  count = 300;
+  			  count = 300;
  80001ba:	f44f 7396 	mov.w	r3, #300	; 0x12c
  80001be:	607b      	str	r3, [r7, #4]
- 			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
+  			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
  80001c0:	2140      	movs	r1, #64	; 0x40
  80001c2:	4810      	ldr	r0, [pc, #64]	; (8000204 <main+0xb8>)
  80001c4:	f000 fc16 	bl	80009f4 <HAL_GPIO_TogglePin>
- 			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+  			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
  80001c8:	2180      	movs	r1, #128	; 0x80
  80001ca:	480e      	ldr	r0, [pc, #56]	; (8000204 <main+0xb8>)
  80001cc:	f000 fc12 	bl	80009f4 <HAL_GPIO_TogglePin>
- 			  }
- 		  }
- 		  if(state == 2) {
+  			  }
+  		  }
+  		  if(state == 2) {
  80001d0:	683b      	ldr	r3, [r7, #0]
  80001d2:	2b02      	cmp	r3, #2
  80001d4:	d10f      	bne.n	80001f6 <main+0xaa>
- 			  if(count <= 0){
+  			  if(count <= 0){
  80001d6:	687b      	ldr	r3, [r7, #4]
  80001d8:	2b00      	cmp	r3, #0
  80001da:	dc0c      	bgt.n	80001f6 <main+0xaa>
- 			  state = 0;
+  			  state = 0;
  80001dc:	2300      	movs	r3, #0
  80001de:	603b      	str	r3, [r7, #0]
- 			  count = 500;
+  			  count = 500;
  80001e0:	f44f 73fa 	mov.w	r3, #500	; 0x1f4
  80001e4:	607b      	str	r3, [r7, #4]
- 			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+  			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
  80001e6:	2180      	movs	r1, #128	; 0x80
  80001e8:	4806      	ldr	r0, [pc, #24]	; (8000204 <main+0xb8>)
  80001ea:	f000 fc03 	bl	80009f4 <HAL_GPIO_TogglePin>
- 			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+  			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
  80001ee:	2120      	movs	r1, #32
  80001f0:	4804      	ldr	r0, [pc, #16]	; (8000204 <main+0xb8>)
  80001f2:	f000 fbff 	bl	80009f4 <HAL_GPIO_TogglePin>
- 			  }
+  			  }
 
- 		  }
- 	  	 count--;
+  		  }
+  	  	 count--;
  80001f6:	687b      	ldr	r3, [r7, #4]
  80001f8:	3b01      	subs	r3, #1
  80001fa:	607b      	str	r3, [r7, #4]
- 	  	 HAL_Delay(10);
+  	  	 HAL_Delay(10);
  80001fc:	200a      	movs	r0, #10
  80001fe:	f000 f95f 	bl	80004c0 <HAL_Delay>
- 		  if(state == 0) {
+  		  if(state == 0) {
  8000202:	e7c0      	b.n	8000186 <main+0x3a>
  8000204:	40010800 	.word	0x40010800
 
