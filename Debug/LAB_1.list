@@ -97,7 +97,7 @@ Disassembly of section .text:
  8000162:	2300      	moveq	r3, #0
  8000164:	b2db      	uxtb	r3, r3
  8000166:	461a      	mov	r2, r3
- 8000168:	2120      	movs	r1, #32
+ 8000168:	2110      	movs	r1, #16
  800016a:	4810      	ldr	r0, [pc, #64]	; (80001ac <ledonway1.5429+0x60>)
  800016c:	f000 fcb6 	bl	8000adc <HAL_GPIO_WritePin>
 	  HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, led=="YELLOW"?RESET:SET);
@@ -109,7 +109,7 @@ Disassembly of section .text:
  800017a:	2300      	moveq	r3, #0
  800017c:	b2db      	uxtb	r3, r3
  800017e:	461a      	mov	r2, r3
- 8000180:	2140      	movs	r1, #64	; 0x40
+ 8000180:	2120      	movs	r1, #32
  8000182:	480a      	ldr	r0, [pc, #40]	; (80001ac <ledonway1.5429+0x60>)
  8000184:	f000 fcaa 	bl	8000adc <HAL_GPIO_WritePin>
 	  HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, led=="GREEN"?RESET:SET);
@@ -121,7 +121,7 @@ Disassembly of section .text:
  8000192:	2300      	moveq	r3, #0
  8000194:	b2db      	uxtb	r3, r3
  8000196:	461a      	mov	r2, r3
- 8000198:	2180      	movs	r1, #128	; 0x80
+ 8000198:	2140      	movs	r1, #64	; 0x40
  800019a:	4804      	ldr	r0, [pc, #16]	; (80001ac <ledonway1.5429+0x60>)
  800019c:	f000 fc9e 	bl	8000adc <HAL_GPIO_WritePin>
   }
@@ -172,7 +172,7 @@ int main(void)
     while (1)
     {
     	switch(state){
-    	case 0:
+    	case 0:                                        //RED1, GREEN2 set
     		ledonway1("RED");
  80001f8:	1d3b      	adds	r3, r7, #4
  80001fa:	469c      	mov	ip, r3
@@ -196,7 +196,7 @@ int main(void)
     		}
     		break;
  800021a:	e037      	b.n	800028c <main+0xd4>
-    	case 1:
+    	case 1:                                     //RED1, YELLOW2 set
     	    		ledonway1("RED");
  800021c:	1d3b      	adds	r3, r7, #4
  800021e:	469c      	mov	ip, r3
@@ -220,7 +220,7 @@ int main(void)
     	    		}
     	     break;
  8000240:	e026      	b.n	8000290 <main+0xd8>
-    	case 2:
+    	case 2:                                    //GREEN1, RED2 set
     	    	    ledonway1("GREEN");
  8000242:	1d3b      	adds	r3, r7, #4
  8000244:	469c      	mov	ip, r3
@@ -244,7 +244,7 @@ int main(void)
     	    	    }
     	     break;
  8000264:	e016      	b.n	8000294 <main+0xdc>
-    	case 3:
+    	case 3:                                 //YELLOW1, RED2 set
     	    	    ledonway1("YELLOW");
  8000266:	1d3b      	adds	r3, r7, #4
  8000268:	469c      	mov	ip, r3
@@ -470,7 +470,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_RED2_Pin|LED_YELLOW2_Pin|LED_GREEN2_Pin|LED_RED1_Pin
  80003c4:	2200      	movs	r2, #0
- 80003c6:	21ee      	movs	r1, #238	; 0xee
+ 80003c6:	217e      	movs	r1, #126	; 0x7e
  80003c8:	480b      	ldr	r0, [pc, #44]	; (80003f8 <MX_GPIO_Init+0x60>)
  80003ca:	f000 fb87 	bl	8000adc <HAL_GPIO_WritePin>
                           |LED_YELLOW1_Pin|LED_GREEN1_Pin, GPIO_PIN_RESET);
@@ -478,7 +478,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pins : LED_RED2_Pin LED_YELLOW2_Pin LED_GREEN2_Pin LED_RED1_Pin
                            LED_YELLOW1_Pin LED_GREEN1_Pin */
   GPIO_InitStruct.Pin = LED_RED2_Pin|LED_YELLOW2_Pin|LED_GREEN2_Pin|LED_RED1_Pin
- 80003ce:	23ee      	movs	r3, #238	; 0xee
+ 80003ce:	237e      	movs	r3, #126	; 0x7e
  80003d0:	60bb      	str	r3, [r7, #8]
                           |LED_YELLOW1_Pin|LED_GREEN1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
