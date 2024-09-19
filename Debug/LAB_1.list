@@ -1024,7 +1024,7 @@ void update7SegmentWay1(int remainingTime) {
  80008da:	b082      	sub	sp, #8
  80008dc:	af00      	add	r7, sp, #0
  80008de:	6078      	str	r0, [r7, #4]
-    display7SEG1(remainingTime); // Hiển thị trên 7SEG LED cho đường 1
+    display7SEG1(remainingTime);
  80008e0:	6878      	ldr	r0, [r7, #4]
  80008e2:	f7ff fc33 	bl	800014c <display7SEG1>
 }
@@ -1040,7 +1040,7 @@ void update7SegmentWay2(int remainingTime) {
  80008f0:	b082      	sub	sp, #8
  80008f2:	af00      	add	r7, sp, #0
  80008f4:	6078      	str	r0, [r7, #4]
-    display7SEG2(remainingTime); // Hiển thị trên 7SEG LED cho đường 2
+    display7SEG2(remainingTime);
  80008f6:	6878      	ldr	r0, [r7, #4]
  80008f8:	f7ff fdf4 	bl	80004e4 <display7SEG2>
 }
@@ -1078,7 +1078,7 @@ int main(void)
   int stateWay1 = 0;
  8000912:	2300      	movs	r3, #0
  8000914:	627b      	str	r3, [r7, #36]	; 0x24
-    int counterWay1 = 800;  // RED1 thời gian ban đầu = 8 giây (5 giây đèn xanh + 3 giây đèn vàng)
+    int counterWay1 = 800;  // RED1 thời gian ban đầu = 8 giây
  8000916:	f44f 7348 	mov.w	r3, #800	; 0x320
  800091a:	623b      	str	r3, [r7, #32]
 
@@ -1089,7 +1089,7 @@ int main(void)
  8000920:	f44f 73fa 	mov.w	r3, #500	; 0x1f4
  8000924:	61bb      	str	r3, [r7, #24]
 
-    int RED_TIME_WAY1 = 8;   // Đèn đỏ đường 1 = 8 giây (5 + 3)
+    int RED_TIME_WAY1 = 8;   // Đèn đỏ đường 1 = 8 giây
  8000926:	2308      	movs	r3, #8
  8000928:	617b      	str	r3, [r7, #20]
     int GREEN_TIME_WAY1 = 5; // Đèn xanh đường 1 = 5 giây
@@ -1099,7 +1099,7 @@ int main(void)
  800092e:	2303      	movs	r3, #3
  8000930:	60fb      	str	r3, [r7, #12]
 
-    int RED_TIME_WAY2 = 8;   // Đèn đỏ đường 2 = 8 giây (5 + 3)
+    int RED_TIME_WAY2 = 8;   // Đèn đỏ đường 2 = 8 giây
  8000932:	2308      	movs	r3, #8
  8000934:	60bb      	str	r3, [r7, #8]
     int GREEN_TIME_WAY2 = 5; // Đèn xanh đường 2 = 5 giây
@@ -1110,7 +1110,6 @@ int main(void)
  800093c:	603b      	str	r3, [r7, #0]
 
     while (1) {
-        // Cập nhật đèn giao thông và 7 đoạn cho đường 1
         switch (stateWay1) {
  800093e:	6a7b      	ldr	r3, [r7, #36]	; 0x24
  8000940:	2b02      	cmp	r3, #2
@@ -1125,7 +1124,7 @@ int main(void)
  8000952:	2b01      	cmp	r3, #1
  8000954:	d016      	beq.n	8000984 <main+0x80>
  8000956:	e041      	b.n	80009dc <main+0xd8>
-            case 0: // RED1
+            case 0:
                 ledonway1("RED");
  8000958:	484d      	ldr	r0, [pc, #308]	; (8000a90 <main+0x18c>)
  800095a:	f7ff ff55 	bl	8000808 <ledonway1>
@@ -1136,7 +1135,7 @@ int main(void)
                     stateWay1 = 1;
  8000964:	2301      	movs	r3, #1
  8000966:	627b      	str	r3, [r7, #36]	; 0x24
-                    counterWay1 = 500; // GREEN1 cho 5 giây
+                    counterWay1 = 500; // GREEN1
  8000968:	f44f 73fa 	mov.w	r3, #500	; 0x1f4
  800096c:	623b      	str	r3, [r7, #32]
                 }
@@ -1152,7 +1151,7 @@ int main(void)
                 break;
  8000982:	e02b      	b.n	80009dc <main+0xd8>
 
-            case 1: // GREEN1
+            case 1:
                 ledonway1("GREEN");
  8000984:	4844      	ldr	r0, [pc, #272]	; (8000a98 <main+0x194>)
  8000986:	f7ff ff3f 	bl	8000808 <ledonway1>
@@ -1163,7 +1162,7 @@ int main(void)
                     stateWay1 = 2;
  8000990:	2302      	movs	r3, #2
  8000992:	627b      	str	r3, [r7, #36]	; 0x24
-                    counterWay1 = 300;  // YELLOW1 cho 3 giây
+                    counterWay1 = 300;  // YELLOW1
  8000994:	f44f 7396 	mov.w	r3, #300	; 0x12c
  8000998:	623b      	str	r3, [r7, #32]
                 }
@@ -1179,7 +1178,7 @@ int main(void)
                 break;
  80009ae:	e015      	b.n	80009dc <main+0xd8>
 
-            case 2: // YELLOW1
+            case 2:
                 ledonway1("YELLOW");
  80009b0:	483a      	ldr	r0, [pc, #232]	; (8000a9c <main+0x198>)
  80009b2:	f7ff ff29 	bl	8000808 <ledonway1>
@@ -1207,7 +1206,6 @@ int main(void)
  80009da:	bf00      	nop
         }
 
-        // Cập nhật đèn giao thông và 7 đoạn cho đường 2
         switch (stateWay2) {
  80009dc:	69fb      	ldr	r3, [r7, #28]
  80009de:	2b02      	cmp	r3, #2
@@ -1222,7 +1220,7 @@ int main(void)
  80009f0:	2b01      	cmp	r3, #1
  80009f2:	d016      	beq.n	8000a22 <main+0x11e>
  80009f4:	e041      	b.n	8000a7a <main+0x176>
-            case 0: // GREEN2
+            case 0:
                 ledonway2("GREEN");
  80009f6:	4828      	ldr	r0, [pc, #160]	; (8000a98 <main+0x194>)
  80009f8:	f7ff ff3a 	bl	8000870 <ledonway2>
@@ -1233,7 +1231,7 @@ int main(void)
                     stateWay2 = 1;
  8000a02:	2301      	movs	r3, #1
  8000a04:	61fb      	str	r3, [r7, #28]
-                    counterWay2 = 300; // YELLOW2 cho 3 giây
+                    counterWay2 = 300;
  8000a06:	f44f 7396 	mov.w	r3, #300	; 0x12c
  8000a0a:	61bb      	str	r3, [r7, #24]
                 }
@@ -1249,7 +1247,7 @@ int main(void)
                 break;
  8000a20:	e02b      	b.n	8000a7a <main+0x176>
 
-            case 1: // YELLOW2
+            case 1:
                 ledonway2("YELLOW");
  8000a22:	481e      	ldr	r0, [pc, #120]	; (8000a9c <main+0x198>)
  8000a24:	f7ff ff24 	bl	8000870 <ledonway2>
@@ -1260,7 +1258,7 @@ int main(void)
                     stateWay2 = 2;
  8000a2e:	2302      	movs	r3, #2
  8000a30:	61fb      	str	r3, [r7, #28]
-                    counterWay2 = 800;  // RED2 = 8 giây
+                    counterWay2 = 800;
  8000a32:	f44f 7348 	mov.w	r3, #800	; 0x320
  8000a36:	61bb      	str	r3, [r7, #24]
                 }
@@ -1276,7 +1274,7 @@ int main(void)
                 break;
  8000a4c:	e015      	b.n	8000a7a <main+0x176>
 
-            case 2: // RED2
+            case 2:
                 ledonway2("RED");
  8000a4e:	4810      	ldr	r0, [pc, #64]	; (8000a90 <main+0x18c>)
  8000a50:	f7ff ff0e 	bl	8000870 <ledonway2>
@@ -1287,7 +1285,7 @@ int main(void)
                     stateWay2 = 0;
  8000a5a:	2300      	movs	r3, #0
  8000a5c:	61fb      	str	r3, [r7, #28]
-                    counterWay2 = 500;  // GREEN2 = 5 giây
+                    counterWay2 = 500;
  8000a5e:	f44f 73fa 	mov.w	r3, #500	; 0x1f4
  8000a62:	61bb      	str	r3, [r7, #24]
                 }
@@ -1313,7 +1311,7 @@ int main(void)
  8000a82:	3b01      	subs	r3, #1
  8000a84:	61bb      	str	r3, [r7, #24]
 
-        HAL_Delay(10);  // Delay 10ms
+        HAL_Delay(10);
  8000a86:	200a      	movs	r0, #10
  8000a88:	f000 f952 	bl	8000d30 <HAL_Delay>
         switch (stateWay1) {

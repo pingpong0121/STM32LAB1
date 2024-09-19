@@ -266,11 +266,11 @@ void ledonway2(char *led) {
 }
 
 void update7SegmentWay1(int remainingTime) {
-    display7SEG1(remainingTime); // Hiển thị trên 7SEG LED cho đường 1
+    display7SEG1(remainingTime);
 }
 
 void update7SegmentWay2(int remainingTime) {
-    display7SEG2(remainingTime); // Hiển thị trên 7SEG LED cho đường 2
+    display7SEG2(remainingTime);
 }
 
 int main(void)
@@ -304,41 +304,40 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   int stateWay1 = 0;
-    int counterWay1 = 800;  // RED1 thời gian ban đầu = 8 giây (5 giây đèn xanh + 3 giây đèn vàng)
+    int counterWay1 = 800;  // RED1 thời gian ban đầu = 8 giây
 
     int stateWay2 = 0;
     int counterWay2 = 500;  // GREEN2 thời gian ban đầu = 5 giây
 
-    int RED_TIME_WAY1 = 8;   // Đèn đỏ đường 1 = 8 giây (5 + 3)
+    int RED_TIME_WAY1 = 8;   // Đèn đỏ đường 1 = 8 giây
     int GREEN_TIME_WAY1 = 5; // Đèn xanh đường 1 = 5 giây
     int YELLOW_TIME_WAY1 = 3; // Đèn vàng đường 1 = 3 giây
 
-    int RED_TIME_WAY2 = 8;   // Đèn đỏ đường 2 = 8 giây (5 + 3)
+    int RED_TIME_WAY2 = 8;   // Đèn đỏ đường 2 = 8 giây
     int GREEN_TIME_WAY2 = 5; // Đèn xanh đường 2 = 5 giây
     int YELLOW_TIME_WAY2 = 3; // Đèn vàng đường 2 = 3 giây
 
     while (1) {
-        // Cập nhật đèn giao thông và 7 đoạn cho đường 1
         switch (stateWay1) {
-            case 0: // RED1
+            case 0:
                 ledonway1("RED");
                 if (counterWay1 <= 0) {
                     stateWay1 = 1;
-                    counterWay1 = 500; // GREEN1 cho 5 giây
+                    counterWay1 = 500; // GREEN1
                 }
                 update7SegmentWay1(counterWay1 / 100);
                 break;
 
-            case 1: // GREEN1
+            case 1:
                 ledonway1("GREEN");
                 if (counterWay1 <= 0) {
                     stateWay1 = 2;
-                    counterWay1 = 300;  // YELLOW1 cho 3 giây
+                    counterWay1 = 300;  // YELLOW1
                 }
                 update7SegmentWay1(counterWay1 / 100);
                 break;
 
-            case 2: // YELLOW1
+            case 2:
                 ledonway1("YELLOW");
                 if (counterWay1 <= 0) {
                     stateWay1 = 0;
@@ -348,31 +347,30 @@ int main(void)
                 break;
         }
 
-        // Cập nhật đèn giao thông và 7 đoạn cho đường 2
         switch (stateWay2) {
-            case 0: // GREEN2
+            case 0:
                 ledonway2("GREEN");
                 if (counterWay2 <= 0) {
                     stateWay2 = 1;
-                    counterWay2 = 300; // YELLOW2 cho 3 giây
+                    counterWay2 = 300;
                 }
                 update7SegmentWay2(counterWay2 / 100);
                 break;
 
-            case 1: // YELLOW2
+            case 1:
                 ledonway2("YELLOW");
                 if (counterWay2 <= 0) {
                     stateWay2 = 2;
-                    counterWay2 = 800;  // RED2 = 8 giây
+                    counterWay2 = 800;
                 }
                 update7SegmentWay2(counterWay2 / 100);
                 break;
 
-            case 2: // RED2
+            case 2:
                 ledonway2("RED");
                 if (counterWay2 <= 0) {
                     stateWay2 = 0;
-                    counterWay2 = 500;  // GREEN2 = 5 giây
+                    counterWay2 = 500;
                 }
                 update7SegmentWay2(counterWay2 / 100);
                 break;
@@ -381,7 +379,7 @@ int main(void)
         counterWay1--;
         counterWay2--;
 
-        HAL_Delay(10);  // Delay 10ms
+        HAL_Delay(10);
     }
   }
 /**
