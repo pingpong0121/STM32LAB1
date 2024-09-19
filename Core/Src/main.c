@@ -91,41 +91,58 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  int count = 500;		//Init with LED_RED on for 5s
-    int state = 0;
-    HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, RESET);		//LED_RED ON
-    HAL_GPIO_WritePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin, SET);	//LED_YELLOW OFF
-    HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);	//LED_GREEN OFF
+  void ledonway1(char *led){
+	  HAL_GPIO_WritePin(LED_RED1_GPIO_Port, LED_RED1_Pin, led=="RED"?RESET:SET);
+	  HAL_GPIO_WritePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin, led=="YELLOW"?RESET:SET);
+	  HAL_GPIO_WritePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin, led=="GREEN"?RESET:SET);
+  }
+  void ledonway2(char *led){
+  	  HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, led=="RED"?RESET:SET);
+  	  HAL_GPIO_WritePin(LED_YELLOW2_GPIO_Port, LED_YELLOW2_Pin, led=="YELLOW"?RESET:SET);
+  	  HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, led=="GREEN"?RESET:SET);
+    }
+  int state =0;
+  int counter=300;
     while (1)
     {
-  		  if(state == 0) {
-  			  if(count <= 0) {
-  			  state = 1;
-  			  count = 200;
-  			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-  			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-  			  }
+    	switch(state){
+    	case 0:                                        //RED1, GREEN2 set
+    		ledonway1("RED");
+    		ledonway2("GREEN");
+    		if (counter<=0){
+    			state=1;
+    			counter=200;
+    		}
+    		break;
+    	case 1:                                     //RED1, YELLOW2 set
+    	    		ledonway1("RED");
+    	    		ledonway2("YELLOW");
+    	    		if (counter<=0){
+    	    			state=2;
+    	    			counter=300;
+    	    		}
+    	     break;
+    	case 2:                                    //GREEN1, RED2 set
+    	    	    ledonway1("GREEN");
+    	    	    ledonway2("RED");
+    	    	    if (counter<=0){
+    	    	    state=3;
+    	    	    counter=200;
+    	    	    }
+    	     break;
+    	case 3:                                 //YELLOW1, RED2 set
+    	    	    ledonway1("YELLOW");
+    	    	    ledonway2("RED");
+    	    	    if (counter<=0){
+    	    	    state=0;
+    	    	    counter=300;
+    	    	   }
+    	      break;
+    	}
+    	counter--;
 
-  		  }
-  		  if(state == 1) {
-  			  if(count <= 0) {
-  			  state = 2;
-  			  count = 300;
-  			  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-  			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-  			  }
-  		  }
-  		  if(state == 2) {
-  			  if(count <= 0){
-  			  state = 0;
-  			  count = 500;
-  			  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-  			  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-  			  }
+    	HAL_Delay(10);
 
-  		  }
-  	  	 count--;
-  	  	 HAL_Delay(10);
 
     /* USER CODE END WHILE */
 
@@ -182,10 +199,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_RED2_Pin|LED_YELLOW2_Pin|LED_GREEN2_Pin|LED_RED1_Pin
+                          |LED_YELLOW1_Pin|LED_GREEN1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_RED_Pin LED_YELLOW_Pin LED_GREEN_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin|LED_YELLOW_Pin|LED_GREEN_Pin;
+  /*Configure GPIO pins : LED_RED2_Pin LED_YELLOW2_Pin LED_GREEN2_Pin LED_RED1_Pin
+                           LED_YELLOW1_Pin LED_GREEN1_Pin */
+  GPIO_InitStruct.Pin = LED_RED2_Pin|LED_YELLOW2_Pin|LED_GREEN2_Pin|LED_RED1_Pin
+                          |LED_YELLOW1_Pin|LED_GREEN1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
